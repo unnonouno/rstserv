@@ -42,7 +42,7 @@ def rst2html(file_path, mode=None):
 if __name__ == '__main__':
     from optparse import OptionParser
     p = OptionParser()
-    p.add_option("-p", "--port", dest="port", default=8080,
+    p.add_option("-p", "--port", type="int", dest="port", default=8080,
                  help="port number")
     (options, args) = p.parse_args()
 
@@ -56,7 +56,7 @@ if __name__ == '__main__':
             return
 
     from BaseHTTPServer import HTTPServer
-    server = HTTPServer(('localhost', options.port), MyHandler)
-    print('Access http:://localhost:%i' % options.port)
+    server = HTTPServer(('', options.port), MyHandler)
+    print('Access http://localhost:%i' % options.port)
     print('Type <Ctrl-C> to stop the server')
     server.serve_forever()
