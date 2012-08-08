@@ -11,6 +11,14 @@ Require
   - docutils
 
 
+Setup
+-----
+
+::
+
+ $ ./setup.py install
+
+
 Usage
 -----
 
@@ -24,7 +32,7 @@ Run the script with your rest file, and access http://localhost:8080.
 Command-line Options
 ~~~~~~~~~~~~~~~~~~~~
 
--p
+\-p
   port number (default: 8080)
 
 License
