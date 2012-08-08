@@ -36,7 +36,7 @@ def read_all(path):
   with open(path) as f:
     return f.read()
 
-def rst2html(file_path, mode=None):
+def rst2html(file_path):
   string = read_all(file_path)
   w = Writer()
   import restserv
@@ -49,6 +49,14 @@ def rst2html(file_path, mode=None):
   r = publish_parts(string, writer=w, settings_overrides=overrides)
   result = r['whole']
   return result.encode('utf-8')
+
+def md2html(file_path):
+  import markdown
+  source = read_all(path).decode('utf-8')
+  body = markdown.markdown(source)
+  html = '<html><body>\n' + body + '</body></html>\n'
+  return body
+
 
 def parse_args():
   from optparse import OptionParser
@@ -65,8 +73,7 @@ def main():
   class MyHandler(BaseHTTPRequestHandler):
     def do_GET(self):
       if path.endswith('.md'):
-        import markdown
-        html = "<html><body>" + markdown.markdown(read_all(path).decode('utf-8')) + "</body></html>"
+        html = md2html(path)
       else:
         html = rst2html(path)
       self.send_response(200)
