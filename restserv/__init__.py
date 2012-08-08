@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 '''
 Copyright (c) 2011, Yuya Unno
 All rights reserved.
@@ -34,10 +32,15 @@ import imp
 import os
 import socket
 
+def read_all(path):
+  with open(path) as f:
+    return f.read()
+
 def rst2html(file_path, mode=None):
-  string = open(file_path).read()
+  string = read_all(file_path)
   w = Writer()
-  (_, path, _) = imp.find_module('template')
+  import restserv
+  (_, path, _) = imp.find_module('template', restserv.__path__)
   overrides = {
     'stylesheet': os.path.join(path, 'default.css'),
     'stylesheet_path': None,
@@ -54,13 +57,18 @@ def parse_args():
                type="int", help="port number")
   return p.parse_args()
 
-if __name__ == '__main__':
+def main():
   (options, args) = parse_args()
+  path = args[0]
 
   from BaseHTTPServer import BaseHTTPRequestHandler
   class MyHandler(BaseHTTPRequestHandler):
     def do_GET(self):
-      html = rst2html(args[0])
+      if path.endswith('.md'):
+        import markdown
+        html = "<html><body>" + markdown.markdown(read_all(path).decode('utf-8')) + "</body></html>"
+      else:
+        html = rst2html(path)
       self.send_response(200)
       self.end_headers()
       self.wfile.write(html)
@@ -68,7 +76,7 @@ if __name__ == '__main__':
 
   from BaseHTTPServer import HTTPServer
   host = socket.gethostname()
-  server = HTTPServer((host, options.port), MyHandler)
+  server = HTTPServer(('', options.port), MyHandler)
   print('Access http:://%s:%i' % (host, options.port))
   print('Type <Ctrl-C> to stop the server')
   server.serve_forever()
