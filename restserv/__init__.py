@@ -52,7 +52,7 @@ def rst2html(file_path):
 
 def md2html(file_path):
   import markdown
-  source = read_all(path).decode('utf-8')
+  source = read_all(file_path).decode('utf-8')
   body = markdown.markdown(source)
   html = '<html><body>\n' + body + '</body></html>\n'
   return body
