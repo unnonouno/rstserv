@@ -84,6 +84,6 @@ def main():
   from BaseHTTPServer import HTTPServer
   host = socket.gethostname()
   server = HTTPServer(('', options.port), MyHandler)
-  print('Access http:://%s:%i' % (host, options.port))
+  print('Access http://%s:%i' % (host, options.port))
   print('Type <Ctrl-C> to stop the server')
   server.serve_forever()
