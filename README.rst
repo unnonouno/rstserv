@@ -25,7 +25,7 @@ Usage
 
 ::
 
-$ restserver [-p port] [file]
+$ restserv [-p port] [file]
 
 Run the script with your rest file, and access http://localhost:8080.
 
