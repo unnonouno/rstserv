@@ -27,6 +27,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 '''
 
 import argparse
+
+__version__ = '0.1.0'
+
 import imp
 import os
 import socket
@@ -97,6 +100,7 @@ def main():
 
     host = socket.gethostname()
     server = HTTPServer(('', args.port), MyHandler)
+    print('rstserv %s' % __version__)
     print('Access http://%s:%i' % (host, args.port))
     print('Type <Ctrl-C> to stop the server')
     server.serve_forever()
