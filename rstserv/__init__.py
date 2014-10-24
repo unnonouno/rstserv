@@ -39,8 +39,8 @@ def read_all(path):
 def rst2html(file_path):
   string = read_all(file_path)
   w = Writer()
-  import restserv
-  (_, path, _) = imp.find_module('template', restserv.__path__)
+  import rstserv
+  (_, path, _) = imp.find_module('template', rstserv.__path__)
   overrides = {
     'stylesheet': os.path.join(path, 'default.css'),
     'stylesheet_path': None,

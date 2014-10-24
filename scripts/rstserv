@@ -29,5 +29,5 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 '''
 
 if __name__ == '__main__':
-  import restserv
-  restserv.main()
+  import rstserv
+  rstserv.main()

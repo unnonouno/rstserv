@@ -1,4 +1,4 @@
-rest server
+rst server
 ===========
 
 This python script is a simple http server that shows a reStructured text file.
@@ -25,9 +25,9 @@ Usage
 
 ::
 
-$ restserv [-p port] [file]
+$ rstserv [-p port] [file]
 
-Run the script with your rest file, and access http://localhost:8080.
+Run the script with your rst file, and access http://localhost:8080.
 
 
 Command-line Options
