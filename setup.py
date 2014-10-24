@@ -1,7 +1,11 @@
 #!/usr/bin/env python
 
 import glob
-from distutils.core import setup
+from setuptools import setup
+
+requires = [
+    'docutils',
+    ]
 
 setup(
     name='rstserv',
@@ -15,5 +19,6 @@ setup(
         'rstserv.template': ['*.css',
                              '*.html',]
         },
-    scripts=['scripts/rstserv']
+    scripts=['scripts/rstserv'],
+    install_requires=requires,
     )
