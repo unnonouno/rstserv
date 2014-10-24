@@ -26,11 +26,20 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 '''
 
-from docutils.core import publish_parts
-from docutils.writers.html4css1 import Writer
 import imp
 import os
 import socket
+import sys
+
+if sys.version_info >= (3, 0):
+    from http.server import BaseHTTPRequestHandler
+    from http.server import HTTPServer
+else:
+    from BaseHTTPServer import BaseHTTPRequestHandler
+    from BaseHTTPServer import HTTPServer
+
+from docutils.core import publish_parts
+from docutils.writers.html4css1 import Writer
 
 
 def read_all(path):
@@ -73,8 +82,6 @@ def main():
     (options, args) = parse_args()
     path = args[0]
 
-    from BaseHTTPServer import BaseHTTPRequestHandler
-
     class MyHandler(BaseHTTPRequestHandler):
         def do_GET(self):
             if path.endswith('.md'):
@@ -86,7 +93,6 @@ def main():
             self.wfile.write(html)
             return
 
-    from BaseHTTPServer import HTTPServer
     host = socket.gethostname()
     server = HTTPServer(('', options.port), MyHandler)
     print('Access http://%s:%i' % (host, options.port))
