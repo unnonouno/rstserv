@@ -4,6 +4,7 @@ import glob
 from setuptools import setup
 
 requires = [
+    'argparse',
     'docutils',
     ]
 
