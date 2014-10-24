@@ -26,6 +26,7 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 '''
 
+import argparse
 import imp
 import os
 import socket
@@ -71,16 +72,17 @@ def md2html(file_path):
 
 
 def parse_args():
-    from optparse import OptionParser
-    p = OptionParser()
-    p.add_option("-p", "--port", dest="port", default=8080,
-                 type="int", help="port number")
+    p = argparse.ArgumentParser(
+        description='rst server')
+    p.add_argument('-p', '--port', default=8080,
+                   type=int, help='port number')
+    p.add_argument('file', metavar='FILE', help='rst file to show')
     return p.parse_args()
 
 
 def main():
-    (options, args) = parse_args()
-    path = args[0]
+    args = parse_args()
+    path = args.file
 
     class MyHandler(BaseHTTPRequestHandler):
         def do_GET(self):
@@ -94,7 +96,7 @@ def main():
             return
 
     host = socket.gethostname()
-    server = HTTPServer(('', options.port), MyHandler)
-    print('Access http://%s:%i' % (host, options.port))
+    server = HTTPServer(('', args.port), MyHandler)
+    print('Access http://%s:%i' % (host, args.port))
     print('Type <Ctrl-C> to stop the server')
     server.serve_forever()
