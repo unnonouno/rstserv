@@ -32,58 +32,63 @@ import imp
 import os
 import socket
 
+
 def read_all(path):
-  with open(path) as f:
-    return f.read()
+    with open(path) as f:
+        return f.read()
+
 
 def rst2html(file_path):
-  string = read_all(file_path)
-  w = Writer()
-  import rstserv
-  (_, path, _) = imp.find_module('template', rstserv.__path__)
-  overrides = {
-    'stylesheet': os.path.join(path, 'default.css'),
-    'stylesheet_path': None,
-    'initial_header_level': 2
-    }
-  r = publish_parts(string, writer=w, settings_overrides=overrides)
-  result = r['whole']
-  return result.encode('utf-8')
+    string = read_all(file_path)
+    w = Writer()
+    import rstserv
+    (_, path, _) = imp.find_module('template', rstserv.__path__)
+    overrides = {
+        'stylesheet': os.path.join(path, 'default.css'),
+        'stylesheet_path': None,
+        'initial_header_level': 2
+        }
+    r = publish_parts(string, writer=w, settings_overrides=overrides)
+    result = r['whole']
+    return result.encode('utf-8')
+
 
 def md2html(file_path):
-  import markdown
-  source = read_all(file_path).decode('utf-8')
-  body = markdown.markdown(source)
-  html = '<html><body>\n' + body + '</body></html>\n'
-  return body
+    import markdown
+    source = read_all(file_path).decode('utf-8')
+    body = markdown.markdown(source)
+    html = '<html><body>\n' + body + '</body></html>\n'
+    return body
 
 
 def parse_args():
-  from optparse import OptionParser
-  p = OptionParser()
-  p.add_option("-p", "--port", dest="port", default=8080,
-               type="int", help="port number")
-  return p.parse_args()
+    from optparse import OptionParser
+    p = OptionParser()
+    p.add_option("-p", "--port", dest="port", default=8080,
+                 type="int", help="port number")
+    return p.parse_args()
+
 
 def main():
-  (options, args) = parse_args()
-  path = args[0]
+    (options, args) = parse_args()
+    path = args[0]
 
-  from BaseHTTPServer import BaseHTTPRequestHandler
-  class MyHandler(BaseHTTPRequestHandler):
-    def do_GET(self):
-      if path.endswith('.md'):
-        html = md2html(path)
-      else:
-        html = rst2html(path)
-      self.send_response(200)
-      self.end_headers()
-      self.wfile.write(html)
-      return
+    from BaseHTTPServer import BaseHTTPRequestHandler
 
-  from BaseHTTPServer import HTTPServer
-  host = socket.gethostname()
-  server = HTTPServer(('', options.port), MyHandler)
-  print('Access http://%s:%i' % (host, options.port))
-  print('Type <Ctrl-C> to stop the server')
-  server.serve_forever()
+    class MyHandler(BaseHTTPRequestHandler):
+        def do_GET(self):
+            if path.endswith('.md'):
+                html = md2html(path)
+            else:
+                html = rst2html(path)
+            self.send_response(200)
+            self.end_headers()
+            self.wfile.write(html)
+            return
+
+    from BaseHTTPServer import HTTPServer
+    host = socket.gethostname()
+    server = HTTPServer(('', options.port), MyHandler)
+    print('Access http://%s:%i' % (host, options.port))
+    print('Type <Ctrl-C> to stop the server')
+    server.serve_forever()

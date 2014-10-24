@@ -16,8 +16,7 @@ setup(
     packages=['rstserv',
               'rstserv.template'],
     package_data={
-        'rstserv.template': ['*.css',
-                             '*.html',]
+        'rstserv.template': ['*.css', '*.html']
         },
     scripts=['scripts/rstserv'],
     install_requires=requires,
