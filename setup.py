@@ -15,6 +15,7 @@ setup(
     description='Simple reStructured Text Viewer with HTTP Server',
     author='Yuya Unno',
     author_email='unnonouno@gmail.com',
+    url='https://github.com/unnonouno/rstserv',
     packages=['rstserv',
               'rstserv.template'],
     package_data={
@@ -23,4 +24,13 @@ setup(
     scripts=['scripts/rstserv'],
     install_requires=requires,
     license='MIT',
+    classifiers=[
+        'Operating System :: OS Independent',
+        'Environment :: Console',
+        'Environment :: Web Environment',
+        'Programming Language :: Python',
+        'License :: OSI Approved :: MIT License',
+        'Development Status :: 2 - Pre-Alpha',
+        'Topic :: Utilities',
+    ],
     )
