@@ -39,4 +39,4 @@ Command-line Options
 License
 -------
 
-This program is distributred under the new BSD license.
+This program is distributred under the MIT license.

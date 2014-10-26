@@ -22,4 +22,5 @@ setup(
         },
     scripts=['scripts/rstserv'],
     install_requires=requires,
+    license='MIT',
     )
