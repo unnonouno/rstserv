@@ -18,8 +18,11 @@ from docutils.writers.html4css1 import Writer
 
 
 def read_all(path):
-    with open(path) as f:
+    f = open(path)
+    try:
         return f.read()
+    finally:
+        f.close()
 
 
 def rst2html(file_path):
