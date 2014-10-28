@@ -72,9 +72,15 @@ def main():
             self.wfile.write(html)
             return
 
-    host = socket.gethostname()
-    server = HTTPServer(('', args.port), MyHandler)
-    print('rstserv %s' % __version__)
-    print('Access http://%s:%i' % (host, args.port))
-    print('Type <Ctrl-C> to stop the server')
-    server.serve_forever()
+    try:
+        host = socket.gethostname()
+        server = HTTPServer(('', args.port), MyHandler)
+        print('rstserv %s' % __version__)
+        print('Access http://%s:%i' % (host, args.port))
+        print('Type <Ctrl-C> to stop the server')
+        server.serve_forever()
+
+    except Exception as e:
+        sys.stderr.write(str(e))
+        sys.stderr.write('\n')
+        sys.exit(1)
