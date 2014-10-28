@@ -80,7 +80,8 @@ def main():
         print('Type <Ctrl-C> to stop the server')
         server.serve_forever()
 
-    except Exception as e:
+    except Exception:
+        e = sys.exc_info()[1]
         sys.stderr.write(str(e))
         sys.stderr.write('\n')
         sys.exit(1)
