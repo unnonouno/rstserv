@@ -17,7 +17,7 @@ Setup
 
 ::
 
- $ ./setup.py install
+ $ pip install rstserv
 
 
 Usage
