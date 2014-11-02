@@ -1,0 +1,6 @@
+include README.rst
+include LICENSE
+include ChangeLog.rst
+include scripts/rstserv
+recursive-include rstserv *.py *.css
+recursive-include test *.py
