@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import glob
+import os
 from setuptools import setup
 from rstserv import __version__
 
