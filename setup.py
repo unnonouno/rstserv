@@ -9,10 +9,16 @@ requires = [
     'docutils',
     ]
 
+
+def read(name):
+    return open(os.path.join(os.path.dirname(__file__), name)).read()
+
+
 setup(
     name='rstserv',
     version=__version__,
     description='Simple reStructured Text Viewer with HTTP Server',
+    long_description=read('README.rst'),
     author='Yuya Unno',
     author_email='unnonouno@gmail.com',
     url='https://github.com/unnonouno/rstserv',
