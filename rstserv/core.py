@@ -21,6 +21,7 @@ try:
 except:
     markdown = None
 
+import rstserv
 
 def read_all(path):
     f = open(path)
@@ -33,7 +34,6 @@ def read_all(path):
 def rst2html(file_path):
     string = read_all(file_path)
     w = Writer()
-    import rstserv
     (_, path, _) = imp.find_module('template', rstserv.__path__)
     overrides = {
         'stylesheet': os.path.join(path, 'default.css'),
