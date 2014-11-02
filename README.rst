@@ -1,6 +1,9 @@
 rst server
 ===========
 
+.. image:: https://travis-ci.org/unnonouno/rstserv.svg?branch=master
+   :target: https://travis-ci.org/unnonouno/rstserv
+
 This python script is a simple http server that shows a reStructured text file.
 
 Require
