@@ -16,6 +16,11 @@ else:
 from docutils.core import publish_parts
 from docutils.writers.html4css1 import Writer
 
+try:
+    import markdown
+except:
+    markdown = None
+
 
 def read_all(path):
     f = open(path)
@@ -41,7 +46,6 @@ def rst2html(file_path):
 
 
 def md2html(file_path):
-    import markdown
     source = read_all(file_path).decode('utf-8')
     body = markdown.markdown(source)
     html = '<html><body>\n' + body + '</body></html>\n'
@@ -63,7 +67,7 @@ def main():
 
     class MyHandler(BaseHTTPRequestHandler):
         def do_GET(self):
-            if path.endswith('.md'):
+            if markdown and path.endswith('.md'):
                 html = md2html(path)
             else:
                 html = rst2html(path)
