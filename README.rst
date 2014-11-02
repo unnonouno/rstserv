@@ -9,7 +9,7 @@ Require
 - python (> 2.4)
 
   - docutils
-  - markdown
+  - markdown (optional)
 
 
 Setup
